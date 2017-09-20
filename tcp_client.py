@@ -10,7 +10,6 @@ def main():
     # solicita conexão
     c.connect(("127.0.0.1", 8000))
 
-
     data = c.recv(256)
 
     print data
