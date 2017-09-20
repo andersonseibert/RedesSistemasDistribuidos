@@ -1,22 +1,34 @@
-import socket
+import asyncore, socket
 
 
-def main():
+class Server(asyncore.dispatcher):
+    #CONTROLA O INICIO DA CLASSE
+    def __init__(self, host, port):
+        asyncore.dispatcher.__init__(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.bind(('', port))
+        self.listen(5)
+        print "Aguardando por Conexoes..."
 
-        s = socket.socket()
-        s.bind(('127.0.0.1', 8000))
-        s.listen(5)
-        c, addr = s.accept()
-        print("Usuario " + str(addr) + " se conectou!")
-        while True:
-            data = c.recv(1024)
-            if not data:
-                break
+    #CONTROLA A ACEITACAO DA CONEXAO
+    def handle_accept(self):
+        socket, address = self.accept()
+        print 'Conexao: ', address
+        socket.send("Ola Cliente " + socket.recv(1024))
 
-            print(str(addr) + " name is " + data.decode("utf-8"))
-            # c.send(str.encode(whatever))
-        c.close()
+    #CONTROLA A LEITURA DE DADOS
+    def handle_read(self):
+        print "Lendo..."
+        out_buffer = self.recv(1024)
+        if not out_buffer:
+            self.close()
+        print out_buffer
+
+    #CONTROLA O FECHAMENTO DA CONEXAO
+    def handle_closed(self):
+        print "Servidor: Conexao Fechada"
+        self.close()
 
 
-if __name__ == "__main__":
-    main()
+s = Server('127.0.0.1', 8000)
+asyncore.loop()
