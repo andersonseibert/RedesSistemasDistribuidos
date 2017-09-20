@@ -7,8 +7,7 @@ class Client(asyncore.dispatcher):
         asyncore.dispatcher.__init__(self)
         self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connect((host, port))
-        self.send("Anderson")
-        print "Cliente Iniciado..."
+        self.send("Roberto")
 
     #CONTROLA O FIM DA CONEXAO
     def handle_close(self):
