@@ -13,8 +13,16 @@ class TCPReader(threading.Thread):
     def run(self):
         global terminate
         while not terminate:
-            data = self.socket.recv(256)
-            print data
+            try:
+                data = self.socket.recv(256)
+                print data
+
+            except socket.timeout:
+                print "racv timeout"
+
+            except socket.error, e:
+                print "socket error: %s" % e
+                terminate = True
 
 
 class KBReader(threading.Thread):
@@ -42,7 +50,7 @@ def main():
     c.connect(("127.0.0.1", 8000))
 
     c.settimeout(3)
-    c.setblocking(0)
+    #c.setblocking(0)
 
     th1 = TCPReader(c)
     th2 = KBReader(c)
