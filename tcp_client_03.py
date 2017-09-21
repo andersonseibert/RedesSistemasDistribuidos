@@ -19,7 +19,7 @@ class Client(asyncore.dispatcher):
                 self.close()
                 return;
 
-            print "Recebido do Servidor: ", data
+            print "Echo: ", data
             Client('127.0.0.1', 8000)
 
 

@@ -14,7 +14,7 @@ class Server(asyncore.dispatcher):
     def handle_accept(self):
         socket, address = self.accept()
         print 'Conexao: ', address
-        socket.send("Ola Cliente " + socket.recv(1024))
+        socket.send(socket.recv(1024))
 
     #CONTROLA A LEITURA DE DADOS
     def handle_read(self):
