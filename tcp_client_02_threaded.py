@@ -41,6 +41,9 @@ def main():
     # solicita conexão
     c.connect(("127.0.0.1", 8000))
 
+    c.settimeout(3)
+    c.setblocking(0)
+
     th1 = TCPReader(c)
     th2 = KBReader(c)
 
