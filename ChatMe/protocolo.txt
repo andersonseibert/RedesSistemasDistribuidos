@@ -1,0 +1,10 @@
+voto
+
+emissor: <uuid> -- uuid da instancia que envia a mensagem
+tipoMensagem: 0 -voto
+candidatoDistribuidor: <uuid> -- uuid da instancia votada
+valorVoto: <uuid> -- valor do voto
+
+Eleição:
+1) INSTANCIA ENVIA VOTO EM SI MESMO
+2)

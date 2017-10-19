@@ -4,7 +4,7 @@ from time import sleep
 from threading import Thread
 
 
-name = "Anderson"
+name = "Smigol"
 broadcast = "192.168.47.255"
 port = 6777
 local_id = uuid.uuid4()
