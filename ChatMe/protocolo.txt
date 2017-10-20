@@ -1,10 +1,24 @@
 voto
 
-emissor: <uuid> -- uuid da instancia que envia a mensagem
-tipoMensagem: 0 -voto
-candidatoDistribuidor: <uuid> -- uuid da instancia votada
-valorVoto: <uuid> -- valor do voto
+remetente: <uuid> -- uuid da instancia que envia a mensagem
+tipo: 0 -voto
+voto_instancia: <uuid> -- uuid da instancia votada
+voto_distribuidor: |0|1| - 1 somente se instancia do voto é o distribuidor atual
+
+{"remetente":uuid, "tipo": 0, "voto_instancia":uuid, "voto_distribuidor":0}
 
 Eleição:
 1) INSTANCIA ENVIA VOTO EM SI MESMO
-2)
+
+2) AO RECEBER UM VOTO DE UM OUTRO REMETENTE, VERIFICA SE O VALORVOTODISTRIBUIDOR É 1
+NAO PRECISA COMPARAR UUID DO VALORVOTOREMETENTE, SIMPLESMENTE ENVIA ADIANTE.
+
+SE voto_distribuidor == 0
+    SE voto_instancia < UUID LOCAL:
+        ENVIAR VOTO NA INSTÂNCIA
+    SENAO
+        ENVIAR ADIANTE VOTO RECEBIDO
+
+
+3) AGUARDAR 3 SEGUNDOS APOS O ULTIMO VOTO RECEBIDO, O DISTRIBUIDOR SERA O UUID CONSTANTE
+NO ULTIMO VOTO RECEBIDO
