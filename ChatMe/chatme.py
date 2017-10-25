@@ -21,17 +21,11 @@ def sendmessage(msg, repeat):  # ENVIA MENSAGEM
         print ""+msg
 
 
-def sendbroadcast(msg, repeat):
-    sendmessage(msg, ("255.255.255.255", 6777), repeat)
-
-
 # listener
 def broadcast_listener():
-    global port
-
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock.bind('0.0.0.0', port)
+    #sock.bind(broadcast, port)
 
     while True:
         data = sock.recv(1024)
@@ -43,10 +37,10 @@ def broadcast_listener():
 
 # funcao main
 def main():
-    thread_announcer = Thread(target=sendmessage(""+dados, 4))
+    #thread_announcer = Thread(target=sendmessage(""+dados, 4))
     thread_broadcast_listener = Thread(target=broadcast_listener)
     thread_broadcast_listener.start()
-    thread_announcer.start()
+    #thread_announcer.start()
 
 
 if __name__ == '__main__':
