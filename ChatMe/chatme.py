@@ -1,5 +1,6 @@
 import uuid
 import socket
+import json
 from time import sleep
 from threading import Thread
 
@@ -7,9 +8,9 @@ from threading import Thread
 # broadcast = "0.0.0.0"
 broadcast = "255.255.255.255"
 port = 6777
-voto_instancia = uuid.uuid4()
-dados = "{remetente: "+voto_instancia.hex+", tipo:0, voto_instancia: 33, voto_distribuidor: 0}"
+voto_instancia = uuid.uuid4().int
 
+msg = {'remetente': voto_instancia, 'tipo': 0, 'instancia_votada': 0, 'voto_instancia': voto_instancia, 'voto_distribuidor' : voto_instancia}
 
 def sendmessage(msg, repeat):  # ENVIA MENSAGEM
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
